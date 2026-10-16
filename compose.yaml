@@ -1,0 +1,41 @@
+services:
+  ib-gateway:
+    build:
+      context: .
+      args:
+        IB_GATEWAY_VERSION: ${IB_GATEWAY_VERSION:-10.50.1e}
+        IB_GATEWAY_CHANNEL: ${IB_GATEWAY_CHANNEL:-stable}
+        IBC_VERSION: ${IBC_VERSION:-3.24.2}
+    image: ghcr.io/nathan0000/ib-gateway-official:${IB_GATEWAY_VERSION:-10.50.1e}
+    restart: unless-stopped
+    init: true
+    shm_size: 1gb
+    environment:
+      TWS_USERID_FILE: /run/secrets/ib_username
+      TWS_PASSWORD_FILE: /run/secrets/ib_password
+      VNC_SERVER_PASSWORD_FILE: /run/secrets/vnc_password
+      TRADING_MODE: ${TRADING_MODE:-paper}
+      READ_ONLY_API: ${READ_ONLY_API:-no}
+      TWOFA_TIMEOUT_ACTION: ${TWOFA_TIMEOUT_ACTION:-exit}
+      TZ: ${TZ:-Australia/Sydney}
+    ports:
+      - "127.0.0.1:4001:4003" # live API
+      - "127.0.0.1:4002:4004" # paper API
+      - "127.0.0.1:5900:5901" # VNC, password protected
+    volumes:
+      - gateway-settings:/data
+    secrets:
+      - ib_username
+      - ib_password
+      - vnc_password
+
+secrets:
+  ib_username:
+    file: ./secrets/ib_username.txt
+  ib_password:
+    file: ./secrets/ib_password.txt
+  vnc_password:
+    file: ./secrets/vnc_password.txt
+
+volumes:
+  gateway-settings:
