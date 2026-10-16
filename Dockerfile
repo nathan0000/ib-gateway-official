@@ -64,3 +64,5 @@ WORKDIR /home/ibgateway
 VOLUME ["/data"]
 EXPOSE 4003 4004 5901
 ENTRYPOINT ["/usr/local/bin/ibgateway-entrypoint"]
+
+LABEL org.opencontainers.image.source="https://github.com/nathan0000/ib-gateway-official"
