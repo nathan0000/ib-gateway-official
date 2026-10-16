@@ -6,7 +6,7 @@ services:
         IB_GATEWAY_VERSION: ${IB_GATEWAY_VERSION:-10.50.1e}
         IB_GATEWAY_CHANNEL: ${IB_GATEWAY_CHANNEL:-stable}
         IBC_VERSION: ${IBC_VERSION:-3.24.2}
-    image: ghcr.io/nathan0000/ib-gateway-official:${IB_GATEWAY_VERSION:-10.50.1e}
+    image: ghcr.io/nathan0000/ib-gateway-official:latest
     restart: unless-stopped
     init: true
     shm_size: 1gb
