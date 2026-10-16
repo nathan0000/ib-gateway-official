@@ -28,9 +28,10 @@ docker compose logs -f ib-gateway
 
 The GitHub Actions workflow in this repository builds and publishes
 `ghcr.io/nathan0000/ib-gateway-official:latest` on pushes to `develop` and on
-manual workflow dispatch. The package inherits the repository visibility; make
-the GHCR package public in GitHub Packages settings if it should be pullable
-without authentication.
+manual workflow dispatch. The image labels its source repository so GitHub can
+link the GHCR package. GHCR packages may default to private; make the package
+public in GitHub Packages settings if it should be pullable without
+authentication.
 
 The default is paper trading. The application connects to `127.0.0.1:4002` for paper or `127.0.0.1:4001` for live. Choose `TRADING_MODE=live` only when intended. Open a VNC client to `127.0.0.1:5900` if you need to complete or inspect login/2FA. Settings persist in the `gateway-settings` Docker volume.
 
