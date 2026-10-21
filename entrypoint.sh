@@ -4,7 +4,8 @@ set -Eeuo pipefail
 # Read Docker secrets without placing their contents in image layers or
 # docker-compose environment configuration.
 read_secret() {
-    local name="$1" file_var="${1}_FILE" file="${!file_var:-}"
+    local name="$1" file_var="${1}_FILE"
+    local file="${!file_var:-}"
     if [[ -n "$file" ]]; then
         [[ -r "$file" ]] || { echo "Secret file is not readable: $file" >&2; exit 1; }
         printf -v "$name" '%s' "$(<"$file")"
