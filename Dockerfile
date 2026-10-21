@@ -47,6 +47,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libxdamage1 libxext6 libxfixes3 libxkbcommon0 libxrandr2 \
       fonts-liberation libasound2t64 libxtst6 xdg-utils \
     && rm -rf /var/lib/apt/lists/* \
+    && (userdel --remove ubuntu 2>/dev/null || true) \
     && groupadd --gid 1000 ibgateway \
     && useradd --uid 1000 --gid 1000 --create-home --shell /bin/bash ibgateway \
     && mkdir -p /data/settings /tmp/.X11-unix \
